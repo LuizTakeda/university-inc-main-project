@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>WebSocket Giroscópio</title>
+</head>
+<body>
+  <h1>Enviando dados do giroscópio via WebSocket</h1>
+  <p id="status">Conectando ao WebSocket...</p>
+  <p id="gyro">Esperando dados do giroscópio...</p>
+
+  <script>
+    const statusEl = document.getElementById('status');
+    const gyroEl = document.getElementById('gyro');
+
+    // Conecta ao WebSocket
+    const socket = new WebSocket('wss://192.168.219.169:4000');
+
+    socket.onopen = () => {
+      statusEl.textContent = 'Conectado ao WebSocket!';
+    };
+
+    socket.onerror = () => {
+      statusEl.textContent = 'Erro na conexão WebSocket!';
+    };
+
+    // Evento do giroscópio
+    window.addEventListener('deviceorientation', (event) => {
+      const { alpha, beta, gamma } = event;
+
+      // Exibe os dados na tela
+      gyroEl.textContent = `Alpha: ${alpha?.toFixed(2)}, Beta: ${beta?.toFixed(2)}, Gamma: ${gamma?.toFixed(2)}`;
+
+      // Envia os dados via WebSocket (em JSON)
+      if (socket.readyState === WebSocket.OPEN) {
+        socket.send(JSON.stringify({ alpha, beta, gamma }));
+      }
+    }, true);
+  </script>
+</body>
+</html>
