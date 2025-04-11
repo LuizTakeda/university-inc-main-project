@@ -14,7 +14,7 @@
     const gyroEl = document.getElementById('gyro');
 
     // Conecta ao WebSocket
-    const socket = new WebSocket('wss://192.168.18.9:4000');
+    const socket = new WebSocket('wss://192.168.219.169:4000');
 
     socket.onopen = () => {
       statusEl.textContent = 'Conectado ao WebSocket!';
