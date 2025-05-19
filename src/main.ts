@@ -34,6 +34,12 @@ wss.on('connection', (ws: WebSocket) => {
 
   ws.on('message', (data) => {
     console.log('Dados recebidos:', data.toString());
+
+    wss.clients.forEach((client)=>{
+      if(client.readyState === client.OPEN){
+        client.send(data.toString());
+      }
+    })
   });
 
   ws.on('close', () => {

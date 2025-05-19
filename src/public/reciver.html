@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cubo com Giroscópio + WebSocket</title>
+  <title>Cubo Controlado por WebSocket</title>
   <style>
     body {
       margin: 0;
@@ -68,53 +68,28 @@
   <script>
     const cube = document.getElementById('cube');
 
-    // Altere a URL para seu servidor WebSocket
-    const socket = new WebSocket('wss://192.168.6.129:4000');
+    // Altere aqui para o IP e porta do servidor WebSocket
+    const socket = new WebSocket('wss://localhost:4000');
 
     socket.onopen = () => {
-      console.log('WebSocket conectado!');
+      console.log("WebSocket conectado à página receptora.");
     };
 
-    socket.onerror = (error) => {
-      console.error('Erro no WebSocket:', error);
+    socket.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        const { beta = 0, gamma = 0 } = data;
+
+        // Aplica os valores recebidos para rotacionar o cubo
+        cube.style.transform = `rotateX(${-beta}deg) rotateY(${gamma}deg)`;
+      } catch (e) {
+        console.error("Erro ao processar mensagem:", e);
+      }
     };
 
-    function handleOrientation(event) {
-      const alpha = event.alpha || 0; // eixo Z
-      const beta = event.beta || 0;   // eixo X
-      const gamma = event.gamma || 0; // eixo Y
-
-      // Atualiza o cubo visualmente
-      cube.style.transform = `rotateX(${-beta}deg) rotateY(${gamma}deg)`;
-
-      // Envia os dados pelo WebSocket
-      if (socket.readyState === WebSocket.OPEN) {
-        socket.send(JSON.stringify({
-          alpha: alpha.toFixed(2),
-          beta: beta.toFixed(2),
-          gamma: gamma.toFixed(2),
-          timestamp: Date.now()
-        }));
-      }
-    }
-
-    if (window.DeviceOrientationEvent) {
-      if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-        DeviceOrientationEvent.requestPermission()
-          .then(permissionState => {
-            if (permissionState === 'granted') {
-              window.addEventListener('deviceorientation', handleOrientation);
-            } else {
-              alert("Permissão negada para acessar giroscópio");
-            }
-          })
-          .catch(console.error);
-      } else {
-        window.addEventListener('deviceorientation', handleOrientation);
-      }
-    } else {
-      alert("Seu dispositivo não suporta DeviceOrientationEvent");
-    }
+    socket.onerror = (err) => {
+      console.error("Erro no WebSocket:", err);
+    };
   </script>
 </body>
 </html>
