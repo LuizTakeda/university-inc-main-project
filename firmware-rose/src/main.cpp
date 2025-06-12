@@ -13,22 +13,26 @@ void loop()
 
     if (str == "ligar:luz")
     {
-      Serial.println("ligar luz");
+      Serial.println("OK");
     }
 
     if (str == "desligar:luz")
     {
-      Serial.println("desligar luz");
+      Serial.println("OK");
+      // Serial.println("desligar luz");
     }
 
     if (str == "abrir:porta")
     {
-      Serial.println("abrir porta");
+      Serial.println("OK");
+      // Serial.println("abrir porta");
     }
 
     if (str == "fechar:porta")
     {
-      Serial.println("fechar porta");
+      Serial.println("OK");
+
+      //      Serial.println("fechar porta");
     }
   }
 }

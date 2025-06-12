@@ -6,3 +6,5 @@ standard-chunk
 typing_extensions
 websockets
 pyserial
+gtts
+playsound
