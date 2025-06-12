@@ -12,7 +12,7 @@ def reconhecer_comando():
         recognizer.adjust_for_ambient_noise(source, duration=0.5)
         print("Ouvindo...")
         try:
-            audio = recognizer.listen(source, timeout=7, phrase_time_limit=6)
+            audio = recognizer.listen(source, phrase_time_limit=10)
             texto = recognizer.recognize_google(audio, language="pt-BR")
             print(f"Você disse: {texto}")
             return texto.lower()
