@@ -7,4 +7,4 @@ typing_extensions
 websockets
 pyserial
 gtts
-playsound
+pygame

@@ -1,6 +1,15 @@
-from modules.voice import play_voice
+from modules.voice import Voice
+from modules.listener import *
 
 # --- Exemplo de Uso ---
 if __name__ == "__main__":
-    texto_curto = "Até mais!"
-    play_voice(texto_curto, 'pt')
+  voice = Voice()
+  
+  while True:
+    if listen_call():
+      voice.say_listenning()
+      
+      command = listen_command()
+      
+      if command == None:
+        voice.say_dont_understand()
