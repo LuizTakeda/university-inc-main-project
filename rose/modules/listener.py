@@ -1,5 +1,42 @@
 import speech_recognition as sr
 
+def analyze_command(sentence: str):
+  if sentence is None:
+    return (None, None)
+
+  sentence = sentence.lower()
+
+  actions = {
+    "desligar": "off",
+    "ligar": "on",
+    "qual é": "get"
+  }
+
+  targets = {
+    "luz": "light",
+    "temperatura": "temperature",
+    "humidade": "humidity",
+    "umidade": "humidity"
+  }
+
+  action = None
+  for key in actions:
+    if key in sentence:
+      action = actions[key]
+      break
+
+  if action is None:
+    return (None, None)
+
+  target = None
+  for key in targets:
+    if key in sentence:
+      target = targets[key]
+      break
+
+  return (action, target)
+
+
 def listen_call(name="rose"):
   recognizer = sr.Recognizer()
 
@@ -11,7 +48,6 @@ def listen_call(name="rose"):
       audio = recognizer.listen(source, phrase_time_limit=10)
       text = recognizer.recognize_google(audio, language="pt-BR") 
       print(f"You said: {text}")
-      
       
       return text.lower() == name.lower()
 
@@ -26,6 +62,7 @@ def listen_call(name="rose"):
 
   return False
 
+
 def listen_command():
   recognizer = sr.Recognizer()
 
@@ -38,7 +75,11 @@ def listen_command():
       text = recognizer.recognize_google(audio, language="pt-BR") 
       print(f"You said: {text}")
 
-      return text.lower()
+      command = analyze_command(text)
+
+      print(f"Command {command}")
+
+      return command
 
     except sr.UnknownValueError:
       print("Could not understand audio.")

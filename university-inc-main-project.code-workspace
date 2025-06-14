@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "firmware-rose",
+			"path": "firmware-rose"
+		},
+		{
+			"path": "rose"
+		}
+	],
+	"settings": {
+		"sarif-viewer.connectToGithubCodeScanning": "off",
+		"files.associations": {
+			".als.json": "jsonc",
+			"cmath": "cpp"
+		}
+	}
+}

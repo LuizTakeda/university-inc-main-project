@@ -18,12 +18,13 @@ class Voice:
         "done": ("Feito", "done.mp3"),
         "temperature": ("A temperatura atual é de", "temperature.mp3"),
         "humidity": ("A umidade atual é de", "humidity.mp3"),
+        "fail": ("Falha ao executar ação", "fail.mp3"),
     }
 
     self._generate_audios()
 
   def _generate_audios(self):
-    for key, (text, file_name) in self._audio_files.items():
+    for _, (text, file_name) in self._audio_files.items():
       path = os.path.join(self.BASE_AUDIO_DIR, file_name)
 
       if not os.path.exists(path):
@@ -59,6 +60,9 @@ class Voice:
 
   def say_humidity(self):
     self._play("humidity")
+
+  def say_fail(self):
+    self._play("fail")
 
   def say(self, text):
     file_name = "temp.mp3"

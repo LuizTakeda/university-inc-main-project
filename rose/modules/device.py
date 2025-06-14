@@ -86,14 +86,16 @@ class Device:
           command (str): The text to send to the ESP.
       """
       if self.esp and self.esp.is_open:
+        self.esp.reset_input_buffer();
+
         self.esp.write((f"{target}:{action}\n").encode())
         print(f"Command sent: {target}:{action}")
 
         response = self.esp.read_until()
         print(f"Response: {response.decode().strip()}")
-        if response == "OK":
+        if response.decode().strip() == "OK":
           return True
-          
+
       else:
         print("Device is not connected")
         
@@ -107,12 +109,14 @@ class Device:
             command (str): The text to send to the ESP.
         """
         if self.esp and self.esp.is_open:
+            self.esp.reset_input_buffer();
+            
             self.esp.write((f"{target}:{action}\n").encode())
             print(f"Command sent: {target}:{action}")
 
             response = self.esp.read_until()
             print(f"Response: {response.decode().strip()}")
-            return response
+            return response.decode().strip()
             
         else:
             print("Device is not connected")

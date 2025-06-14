@@ -9,23 +9,36 @@ if __name__ == "__main__":
 
   device.connect()
 
-  device.send_command("ligar", "luz")
-
-  response = device.send_command_with_response("ligar", "luz")
-
-  print(f"Response {response}")
-
-  device.disconnect()
-
   try:
     while True:
       if listen_call():
         voice.say_listenning()
 
-        command = listen_command()
+        action, target = listen_command()
 
-        if command is None:
+        if action is None or target is None:
           voice.say_dont_understand()
+          continue
+      
+        if  action != "get" and not device.send_command(target, action):
+          voice.say_fail()
+          continue
+
+        if action == "get":
+
+          response = device.send_command_with_response(target, action)
+
+          if response is None:
+            voice.say_fail()  
+            continue
+
+          voice.say(f"Atualmente é de {response}")
+          continue
+
+        voice.say_done();
+
+
 
   except KeyboardInterrupt:
+    device.disconnect()
     print("\nGoodbye!")
