@@ -83,7 +83,8 @@ class Device:
       Sends a command string to the ESP device over the serial connection.
 
       Args:
-          command (str): The text to send to the ESP.
+          target (str): target to perform the action.
+          action (action): action to be permformed
       """
       if self.esp and self.esp.is_open:
         self.esp.reset_input_buffer();
@@ -106,7 +107,8 @@ class Device:
         Sends a command string to the ESP device over the serial connection.
 
         Args:
-            command (str): The text to send to the ESP.
+          target (str): target to execute the action.
+          action (action): action to be permformed
         """
         if self.esp and self.esp.is_open:
             self.esp.reset_input_buffer();
