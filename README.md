@@ -3,7 +3,7 @@
 Project Rose was developed for the Unconventional Interfaces course. It is an interactive assistant capable of communicating via a serial interface to control a light actuator and read temperature and humidity sensors.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/1c466cca-b49e-4510-aeac-43c6a6ec5f72">
+  <img src="https://github.com/user-attachments/assets/1c466cca-b49e-4510-aeac-43c6a6ec5f72" width="300">
 </p>
 
 ## Hardware
