@@ -16,7 +16,7 @@ The hardware consists of an ESP32, with an LED connected to pin 19 and a DHT11 s
 
 ## How to run
 
-Go to the folder "rose":
+Navigate to the "rose" folder:
 
 ```bash
   $ cd rose
