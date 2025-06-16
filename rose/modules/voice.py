@@ -33,7 +33,7 @@ class Voice:
 
         # Mapping of predefined speech keys to (text, filename)
         self._audio_files = {
-            "listenning": ("Na escuta", "listenning.mp3"),
+            "listenning": ("Estou ouvindo", "listenning.mp3"),
             "dont_understand": ("Não entendi", "dont_understand.mp3"),
             "done": ("Feito", "done.mp3"),
             "temperature": ("A temperatura atual é de", "temperature.mp3"),
