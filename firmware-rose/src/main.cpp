@@ -56,7 +56,7 @@ static void read_command()
       return;
     }
 
-    Serial.printf("%.2f%%\n", humidity);
+    Serial.printf("%.0f%%\n", humidity);
     return;
   }
 
@@ -70,7 +70,7 @@ static void read_command()
       return;
     }
 
-    Serial.printf("%.2f°C\n", temperature);
+    Serial.printf("%.0f°C\n", temperature);
     return;
   }
 

@@ -77,7 +77,7 @@ def listen_call(name="rose"):
             text = recognizer.recognize_google(audio, language="pt-BR")
             print(f"You said: {text}")
 
-            return text.lower().find(name.lower())
+            return text.lower().find(name.lower()) != -1
 
         except sr.UnknownValueError:
             print("Could not understand audio.")
